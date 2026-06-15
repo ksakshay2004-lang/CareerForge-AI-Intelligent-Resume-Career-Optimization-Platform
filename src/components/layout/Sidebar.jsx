@@ -64,10 +64,10 @@ export function Sidebar({ active, onNav, user, onLogout }) {
             width: 44, height: 44, borderRadius: 12, background: T.primaryLight,
             display: "flex", alignItems: "center", justifyContent: "center",
             fontWeight: 600, fontSize: 16, color: T.primary,
-          }}>{user.charAt(0).toUpperCase()}</div>
+          }}>{(user?.name?.charAt(0) || '?').toUpperCase()}</div>
           <div style={{ flex: 1 }}>
-            <div style={{ fontWeight: 600, fontSize: 14, color: T.text }}>{user}</div>
-            <div style={{ fontSize: 12, color: T.textMuted }}>Member since 2024</div>
+            <div style={{ fontWeight: 600, fontSize: 14, color: T.text }}>{user?.name || 'Guest'}</div>
+            <div style={{ fontSize: 12, color: T.textMuted }}>{user?.organization || 'Member since 2024'}</div>
           </div>
           <button onClick={onLogout} style={{ background: "none", border: "none", color: T.textMuted, fontSize: 18, cursor: "pointer" }}>↪</button>
         </div>

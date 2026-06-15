@@ -44,7 +44,7 @@ export default function Dashboard({ onNavigate, user }) {
     <div>
       <div style={{ marginBottom: 32 }}>
         <h2 style={{ fontSize: 28, fontWeight: 600, color: T.text, marginBottom: 8 }}>
-          Welcome back, {user}
+          Welcome back, {user?.name || 'there'}
         </h2>
         <p style={{ fontSize: 15, color: T.textLight }}>
           Choose a tool below to get started on your career journey.
