@@ -1,70 +1,179 @@
-# Getting Started with Create React App
+# CareerForge — AI-Powered Resume & Career Optimization Platform
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+CareerForge is an all-in-one career toolkit that helps job seekers improve their resumes, identify skill gaps, optimize their LinkedIn profiles, and practice for interviews — all in one clean dashboard.
 
-## Available Scripts
+> Built for Vibe Coding Hackathon 2026 
 
-In the project directory, you can run:
+---
+## 🚀 Live Demo
+ 
+🔗 **Live App:**  https://ornate-concha-20d5b0.netlify.app/
+🎥 **Demo Video:** https://youtu.be/CNYGT5NR0gg
+ 
+---
 
-### `npm start`
+## 📸 Screenshots
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+| Login | Dashboard |
+|---|---|
+| ![Login](docs/screenshots/login.png) | ![Dashboard](docs/screenshots/dashboard.png) |
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+| Template Selection | Resume Builder |
+|---|---|
+| ![Template Choose](docs/screenshots/template-choose.png) | ![Resume Building](docs/screenshots/resume-building.png) |
 
-### `npm test`
+| Resume Score | Skill Gap Analysis |
+|---|---|
+| ![Score](docs/screenshots/score.png) | ![Skill Gap](docs/screenshots/skillgap.png) |
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+| LinkedIn Optimizer | Mock Interview |
+|---|---|
+| ![LinkedIn](docs/screenshots/linkedin.png) | ![Interview](docs/screenshots/interview.png) |
 
-### `npm run build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+---
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## ✨ Features
 
-### `npm run eject`
+- **🔐 Authentication** — Email/password signup with profile details, plus Google Sign-In
+- **📝 Resume Builder** — Guided resume creation with ATS-friendly templates *(in progress)*
+- **📈 Resume Score Analyzer** — Upload a PDF/DOCX/TXT resume and get an instant ATS compatibility score with actionable suggestions
+- **🔍 Skill Gap Analysis** — Pick a target role and discover which in-demand skills are missing from your resume, with curated learning links
+- **🔗 LinkedIn Optimizer** — AI-powered analysis of your LinkedIn profile with a score out of 100 and section-by-section feedback
+- **🎤 Mock Interview** — Practice with 10,000+ domain-specific behavioral, technical, and situational questions, with instant AI-style feedback on your answers
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+---
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## 🛠️ Tech Stack
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+- **Frontend:** React 19, Create React App
+- **Authentication:** Google OAuth (`@react-oauth/google`), JWT decoding
+- **Resume Parsing:** `pdfjs-dist` (PDF), `mammoth` (DOCX)
+- **AI Integration:** OpenRouter API (via a lightweight Express proxy to keep API keys secure)
+- **Styling:** Custom design system (no UI framework dependency)
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+---
 
-## Learn More
+## 🏗️ Architecture
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+```
+┌─────────────────┐       ┌──────────────────┐       ┌──────────────────┐
+│   React App      │──────▶│  Express Proxy    │──────▶│  OpenRouter API   │
+│  (localhost:3000)│       │ (localhost:3001)  │       │   (AI models)     │
+└─────────────────┘       └──────────────────┘       └──────────────────┘
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+The React frontend handles all UI and most logic (resume scoring, skill-gap matching, mock interview question generation/evaluation) locally in the browser. Only the **LinkedIn Optimizer** calls an external AI model, and it does so through a small Node/Express proxy server (`proxy.js`) so that the AI API key is never exposed to the browser.
 
-### Code Splitting
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## ⚙️ Setup & Installation
 
-### Analyzing the Bundle Size
+### Prerequisites
+- Node.js (v18 or higher)
+- npm
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+### 1. Clone the repository
+```bash
+git clone https://github.com/aksharadileep/CareerForge-AI-Intelligent-Resume-Career-Optimization-Platform.git
+cd CareerForge-AI-Intelligent-Resume-Career-Optimization-Platform
+```
 
-### Making a Progressive Web App
+### 2. Install dependencies
+```bash
+npm install
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+### 3. Set up environment variables
+Copy the example environment file and add your own API keys:
+```bash
+cp .env.example .env
+```
 
-### Advanced Configuration
+Edit `.env` and fill in:
+```
+OPENROUTER_API_KEY=your_openrouter_key_here
+REACT_APP_API_URL=http://localhost:8000/api
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+> 🔑 **Get a free OpenRouter API key:** sign up at [openrouter.ai](https://openrouter.ai) — free tier models are available and work with this project.
 
-### Deployment
+### 4. Run the AI proxy server (required for LinkedIn Optimizer)
+```bash
+node proxy.js
+```
+This starts the proxy on `http://localhost:3001`.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+### 5. Run the React app
+In a separate terminal:
+```bash
+npm start
+```
+The app will open at `http://localhost:3000`.
 
-### `npm run build` fails to minify
+> **Note:** Without the proxy running, all features still work *except* the LinkedIn Optimizer's AI analysis (it falls back to default suggestions).
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+---
+
+## 🔑 Google Sign-In Configuration
+
+This project uses Google OAuth for sign-in. The provided Client ID is configured for `localhost:3000`. If you fork this project and run it on a different port or domain, you'll need to:
+1. Create your own OAuth Client ID at [Google Cloud Console](https://console.cloud.google.com/apis/credentials)
+2. Add your origin (e.g. `http://localhost:3000`) under **Authorized JavaScript origins**
+3. Replace the `clientId` in `src/index.js` with your own
+
+---
+
+## 📂 Project Structure
+
+```
+src/
+├── components/
+│   ├── auth/AuthPage.jsx        # Sign in / sign up flow
+│   ├── layout/Shell.jsx         # App shell (header + content area)
+│   ├── layout/Sidebar.jsx       # Navigation sidebar
+│   └── InterviewFeedback.jsx    # Feedback UI for mock interviews
+├── pages/
+│   ├── Dashboard.jsx            # Landing page with feature cards
+│   ├── ResumeBuilder.jsx        # Resume creation tool (in progress)
+│   ├── ScoreAnalyzer.jsx        # ATS resume scoring
+│   ├── SkillGap.jsx             # Skill gap analysis vs. target role
+│   ├── LinkedInOptimizer.jsx    # AI-powered LinkedIn profile review
+│   └── MockInterview.jsx        # Interview practice with feedback
+├── services/
+│   ├── api.js                   # API calls (AI proxy, mock endpoints)
+│   ├── aiQuestionGenerator.js   # Interview question bank generator
+│   └── aiEvaluationService.js   # Answer evaluation logic
+├── hooks/
+│   └── useInterviewQuestions.js # Mock interview state management
+├── constants/
+│   ├── theme.js                 # Design tokens & shared styles
+│   └── navigation.js            # Sidebar nav items
+└── proxy.js                      # Express server to secure AI API key
+```
+
+---
+
+## 🗺️ Roadmap
+
+- [ ] Complete Resume Builder with PDF export
+- [ ] Connect to a persistent backend (user accounts, saved resumes)
+- [ ] Add more job roles to Skill Gap database
+- [ ] Improve Mock Interview with real-time AI evaluation
+
+---
+
+## 👥 Team
+
+- 
+- **Akshara P D** — Full-Stack Development
+- **Akashay K S** — Full-Stack Development
+
+
+---
+
+## 📄 License
+This project was built for **Vibe Coding Hackathon 2026** by Akshara P D & Akashay K S.
+
+Licensed under the MIT License — feel free to use, modify, and distribute this code for learning purposes.
