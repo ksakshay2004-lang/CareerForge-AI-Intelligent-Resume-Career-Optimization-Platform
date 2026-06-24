@@ -172,7 +172,6 @@ src/
 
 
 ---
-
 ## 📄 License
 This project was built for **Vibe Coding Hackathon 2026** by Akshara P D & Akashay K S.
 
