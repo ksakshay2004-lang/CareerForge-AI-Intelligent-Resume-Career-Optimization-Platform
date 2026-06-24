@@ -2,7 +2,7 @@
 
 CareerForge is an all-in-one career toolkit that helps job seekers improve their resumes, identify skill gaps, optimize their LinkedIn profiles, and practice for interviews — all in one clean dashboard.
 
-> Built for Vibe Coding Hackathon 2026 
+
 
 ---
 ## 🚀 Live Demo
